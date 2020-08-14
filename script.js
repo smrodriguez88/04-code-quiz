@@ -1,13 +1,13 @@
-var highscoreEl = document.querySelector("#highscore");
-var timerEl = document.querySelector("#timer");
-var questionEl = document.querySelector("#question");
-var multichoiceEl = document.querySelector("#multichoice");
-var rightwrongEl = document.querySelector("#rightwrong");
-var score = null
-var timer = null
-var timeInterval = null
+const highscoreEl = document.querySelector("#highscore");
+const timerEl = document.querySelector("#timer");
+const questionEl = document.querySelector("#question");
+const multichoiceEl = document.querySelector("#multichoice");
+const rightwrongEl = document.querySelector("#rightwrong");
+let score = null
+let timer = null
+let timeInterval = null
 
-var question1 = {
+let question1 = {
     "question": "What is the HTML tag under which one can write the JavaScript code?",
     "a": "<javascript>",
     "b": "<scripted>",
@@ -16,7 +16,7 @@ var question1 = {
     "ans": "c",
 }
 
-var question2 = {
+let question2 = {
     "question": "Choose the correct JavaScript syntax to change the content of the following HTML code. \n\n <p id='geek'>GeeksforGeeks</p>",
     "a": "document.getElement('geek').innerHTML='I am a Geek';",
     "b": "document.getElementById('geek').innerHTML='I am a Geek';",
@@ -25,7 +25,7 @@ var question2 = {
     "ans": "b",
 }
 
-var question3 = {
+let question3 = {
     "question": "Which of the following is the correct syntax to display 'GeeksforGeeks' in an alert box using JavaScript?",
     "a": "alertbox('GeeksforGeeks');",
     "b": "msg('GeeksforGeeks');",
@@ -34,7 +34,7 @@ var question3 = {
     "ans": "d",
 }
 
-var question4 = {
+let question4 = {
     "question": "What is the correct syntax for referring to an external script called 'geek.js'",
     "a": "<script src='geek.js'>",
     "b": "<script href='geek.js'>",
@@ -43,7 +43,7 @@ var question4 = {
     "ans": "a",
 }
 
-var question5 = {
+let question5 = {
     "question": "Which of the following is not a reserved word in JavaScript?",
     "a": "interface",
     "b": "throws",
@@ -52,7 +52,7 @@ var question5 = {
     "ans": "c",
 }
 
-var questions = [question1, question2, question3, question4, question5]
+let questions = [question1, question2, question3, question4, question5]
 
 // Function starts timer when StartQuiz is triggered
 function Timer(){
@@ -98,7 +98,7 @@ function nextQ(question){
     //Set #question element
     questionEl.textContent = question.question
     // Loop through and add buttons to #multichoice elemment
-    for (var i = 1; i < 5; i++){
+    for (let i = 1; i < 5; i++){
         answerSel = document.createElement("button")
         answerSel.classList.add("answer-button")
         answerSel.setAttribute("ans_letter", Object.keys(question)[i])
@@ -112,9 +112,9 @@ function nextQ(question){
 
 function generateEventListen(question){
         // Capture button elements by Class name answer-button
-        var BtnEl = document.getElementsByClassName("answer-button");
+        let BtnEl = document.getElementsByClassName("answer-button");
         // Loop through button elements and add event listener for each
-        for (var i = 0; i < BtnEl.length; i++) {
+        for (let i = 0; i < BtnEl.length; i++) {
             BtnEl[i].addEventListener('click', function(){
                 // Compare the attribute ans_letter for button click
                 if(this.getAttribute('ans_letter') == question.ans){
@@ -154,7 +154,7 @@ function generateEventListen(question){
 // Shuffle the Questions array
 function questionsShuffle(){
     // for i in the length of questions array -1
-    for(var i = questions.length - 1; i > 0; i--){
+    for(let i = questions.length - 1; i > 0; i--){
         // set a random number with a max value of the index
         randomNum = Math.floor(Math.random() * i)
         // Store the array index option question as a tempOption 
