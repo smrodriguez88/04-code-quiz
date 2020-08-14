@@ -3,8 +3,8 @@ var timerEl = document.querySelector("#timer");
 var questionEl = document.querySelector("#question");
 var multichoiceEl = document.querySelector("#multichoice");
 var rightwrongEl = document.querySelector("#rightwrong");
-var score = 0
-var timer = 0
+var score = null
+var timer = null
 var timeInterval = null
 
 var question1 = {
@@ -57,7 +57,7 @@ var questions = [question1, question2, question3, question4, question5]
 // Function starts timer when StartQuiz is triggered
 function Timer(){
     // If timer == 0, clear questions, display score, ask for initials
-    timer = 90
+    timer = 100
     timerEl.textContent = timer;
     timeInterval = setInterval(function(){
         timer--;
@@ -67,7 +67,7 @@ function Timer(){
 			timerEl.textContent = "";
             clearInterval(timeInterval);
             score = timer
-            // Add code to clear question and question sel info, show score
+            endQuiz()
 		}
     }, 1000)
 }
@@ -92,7 +92,7 @@ function HighScore(score){
 
 // Takes in question object, clears existing content, replaces with new question/answer content
 function nextQ(question){
-    //Clear #question and #multichoice elements
+    //Clear #question, #multichoice, #rightwrong elements
     questionEl.textContent = ""
     multichoiceEl.textContent = ""
     //Set #question element
@@ -118,8 +118,9 @@ function generateEventListen(question){
             BtnEl[i].addEventListener('click', function(){
                 // Compare the attribute ans_letter for button click
                 if(this.getAttribute('ans_letter') == question.ans){
+                    // Display RIGHT/WRONG
+                    rightwrongEl.textContent = "CORRECT!"
                     // If ANS is correct, shift the array
-                    console.log("CORRECT")
                     questions.shift()
                     // If array is not equal to 0 display the next question
                     if(questions.length != 0){
@@ -131,8 +132,9 @@ function generateEventListen(question){
                         endQuiz() 
                     }
                 } else {
+                    // Display RIGHT/WRONG
+                    rightwrongEl.textContent = "WRONG!"
                     // Else ANS is incorrect, shift the array
-                    console.log("WRONG!")
                     questions.shift()
                     // Deduct 10 seconds from timer
                     timer = timer - 10
@@ -169,9 +171,10 @@ function endQuiz(){
     clearInterval(timeInterval);
     // Score is equal to timer
     score = timer
-    //Clear #question and #multichoice elements
+    //Clear #question, #multichoice, #rightwrong elements
     questionEl.textContent = ""
     multichoiceEl.textContent = ""
+    rightwrongEl.textContent = ""
     //TO DO - clear timer and display score where question was
 }
 
